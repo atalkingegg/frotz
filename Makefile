@@ -194,19 +194,26 @@ FLAGS = $(OPTS) $(CURSES_DEFS) $(INCL)
 .phony: all clean
 
 all:	$(NAME) d$(NAME)
+
 #all:	$(NAME)-curses $(NAME)-dumb
 ##  $(NAME)-sdl
 ## sdl still broken 
 
-$(NAME): $(NAME)-curses
-curses:  $(NAME)-curses
-$(NAME)-curses: $(COMMON_TARGET) $(CURSES_TARGET) $(BLORB_TARGET)
-	$(CC) -o $(BINNAME)$(EXTENSION) $(TARGETS) $(LIB) $(CURSES) $(SOUND_LIB)
+#$(NAME): $(NAME)-curses
+#curses:  $(NAME)-curses
+#$(NAME)-curses: $(COMMON_TARGET) $(CURSES_TARGET) $(BLORB_TARGET)
+#	$(CC) -o $(BINNAME)$(EXTENSION) $(TARGETS) $(LIB) $(CURSES) $(SOUND_LIB)
 
-dumb:		$(NAME)-dumb
-d$(NAME):	$(NAME)-dumb
-$(NAME)-dumb:		$(COMMON_TARGET) $(DUMB_TARGET)
-	$(CC) -o d$(BINNAME)$(EXTENSION) $(COMMON_TARGET) $(DUMB_TARGET) $(LIB)
+$(NAME): $(COMMON_TARGET) $(CURSES_TARGET) $(BLORB_TARGET)
+	$(CC) -o $@ $(TARGETS) $(LIB) $(CURSES)
+
+#dumb:		$(NAME)-dumb
+#d$(NAME):	$(NAME)-dumb
+#$(NAME)-dumb:		$(COMMON_TARGET) $(DUMB_TARGET)
+#	$(CC) -o d$(BINNAME)$(EXTENSION) $(COMMON_TARGET) $(DUMB_TARGET) $(LIB)
+
+d$(NAME): $(COMMON_TARGET) $(DUMB_TARGET)
+	$(CC) -o $@ $(COMMON_TARGET) $(DUMB_TARGET) $(LIB)
 
 sdl:		$(NAME)-sdl
 s$(NAME):	$(NAME)-sdl
