@@ -642,7 +642,7 @@ int os_read_file_name (char *file_name, const char *default_name, int flag)
 zword os_read_mouse (void)
 {
 	/* INCOMPLETE */
-
+	return 0;
 } /* os_read_mouse */
 
 

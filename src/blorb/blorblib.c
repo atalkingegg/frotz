@@ -22,7 +22,7 @@ static char contentsticker[] = "\nBlorb Library 1.0 (big-endian)\n";
 #endif
 
 #ifdef BLORB_LITTLE_ENDIAN
-static char contentsticker[] = "\nBlorb Library 1.0 (little-endian)\n";
+/* static char contentsticker[] = "\nBlorb Library 1.0 (little-endian)\n"; */
 #define bb_native2(v)   \
     ( (((uint16)(v) >> 8) & 0x00ff)    \
     | (((uint16)(v) << 8) & 0xff00))

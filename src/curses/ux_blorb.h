@@ -23,7 +23,7 @@ bb_result_t	blorb_res;
 
 
 /* uint32 *findchunk(uint32 *data, char *chunkID, int length); */
-char *findchunk(char *pstart, char *fourcc, int n);
+unsigned char *findchunk(unsigned char *pstart, char *fourcc, int n);
 unsigned short ReadShort(const unsigned char *bytes);
 unsigned long ReadLong(const unsigned char *bytes);
 double ReadExtended(const unsigned char *bytes);

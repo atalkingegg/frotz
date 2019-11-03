@@ -7,7 +7,7 @@ CC = gcc
 # Define your optimization flags.  Most compilers understand -O and -O2,
 # Standard (note: Solaris on UltraSparc using gcc 2.8.x might not like this.)
 #
-OPTS = -O2
+OPTS = -g -Wall -pedantic
 
 # Pentium with gcc 2.7.0 or better
 #OPTS = -O2 -fomit-frame-pointer -malign-functions=2 -malign-loops=2 \
@@ -94,12 +94,12 @@ CURSES = -lcurses
 #
 #EXTENSION = .exe
 
-SDLINC = `sdl-config --cflags`
+SDLINC = `sdl-config --cflags` -I/opt/local/include
 FTCFLAGS = `freetype-config --cflags`
 FTLIBS = `freetype-config --libs`
 
 SDL_DEFS = $(SDLINC) $(FTCFLAGS) $(FTLIBS)
-SDL_LIBS = -ljpeg -lpng -lz -lSDL -lSDL_mixer
+SDL_LIBS = -L/opt/local/lib -ljpeg -lpng -lz -lSDL -lSDL_mixer
 
 #####################################################
 # Nothing under this line should need to be changed.
@@ -191,6 +191,12 @@ CURSES_DEFS = $(OPT_DEFS) $(COLOR_DEFS) $(SOUND_DEFS) $(SOUNDCARD) \
 
 FLAGS = $(OPTS) $(CURSES_DEFS) $(INCL)
 
+.phony: all clean
+
+all:	$(NAME) d$(NAME)
+#all:	$(NAME)-curses $(NAME)-dumb
+##  $(NAME)-sdl
+## sdl still broken 
 
 $(NAME): $(NAME)-curses
 curses:  $(NAME)-curses
@@ -206,8 +212,6 @@ sdl:		$(NAME)-sdl
 s$(NAME):	$(NAME)-sdl
 $(NAME)-sdl:	$(COMMON_TARGET) $(SDL_TARGET) $(BLORB_TARGET)
 	$(CC) -o s$(BINNAME) $(COMMON_TARGET) $(SDL_TARGET) $(BLORB_TARGET) $(SDL_LIBS)
-
-all:	$(NAME) d$(NAME)
 
 
 .SUFFIXES:

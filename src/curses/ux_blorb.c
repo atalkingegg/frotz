@@ -11,9 +11,9 @@
 #include "ux_blorb.h"
 
 
-char *findchunk(char *data, char *string, int length)
+unsigned char *findchunk(unsigned char *data, char *string, int length)
 {
-	char *mydata = data+12;
+	unsigned char *mydata = data+12;
 	while (TRUE) {
 		if (strncmp((char*)mydata, string, 4) == 0)
 			return mydata+8;

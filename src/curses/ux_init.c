@@ -49,6 +49,8 @@
 #include "ux_frotz.h"
 #include "ux_blorb.h"
 
+int ux_init_blorb(void);
+
 f_setup_t f_setup;
 u_setup_t u_setup;
 
@@ -138,7 +140,7 @@ void os_fatal (const char *s, ...)
 
 void os_process_arguments (int argc, char *argv[])
 {
-    int c, i;
+    int c; /* i */
 
     char *p = NULL;
     char *blorb_ext = NULL;
@@ -339,6 +341,9 @@ void os_process_arguments (int argc, char *argv[])
     strncat(f_setup.aux_name, EXT_AUX, strlen(EXT_AUX));
 
     switch (ux_init_blorb()) {
+        case bb_err_Read:
+	  printf("Blorb file could't be opened.\n\n");
+	  break;
         case bb_err_Format:
 	  printf("Blorb file loaded, but unable to build map.\n\n");
 	  break;
@@ -1076,4 +1081,5 @@ int ux_init_blorb(void)
         }
 	return blorb_err;
     }
+    return bb_err_Read;
 }
